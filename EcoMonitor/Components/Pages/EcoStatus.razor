@@ -1,0 +1,37 @@
+<h3>@Titulo</h3>
+
+<p>Total: <span style="color:@CorTexto">@total</span></p>
+
+<button @onclick="AdicionarPontos">Adicionar</button>
+
+<!-- Barra de progresso -->
+<div style="background: lightgray; width: 200px; margin-top:10px;">
+    <div style="background: green; width:@(progresso)%;">
+        &nbsp;
+    </div>
+</div>
+
+<!-- Mensagem de conquista -->
+@if (total >= 100)
+{
+    <p>🌎 Você é um Herói do Planeta!</p>
+}
+
+@code {
+    [Parameter]
+    public string Titulo { get; set; }
+
+    [Parameter]
+    public int Peso { get; set; }
+
+    private int total = 0;
+
+    private int progresso => total > 100 ? 100 : total;
+
+    private void AdicionarPontos()
+    {
+        total += Peso;
+    }
+
+    private string CorTexto => total >= 50 ? "green" : "black";
+}
